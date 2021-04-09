@@ -47,6 +47,7 @@ Would like to implement:
  - notifications to notify everybody of voting results
 
 ## How to try
+https://drive.google.com/file/d/1oyt5zStE2CICk_o-O0mbCa4UdGN2GK5c/view?usp=sharing
 
 
 ## Challenges and accomplishments
