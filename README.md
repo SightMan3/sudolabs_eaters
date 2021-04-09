@@ -1,4 +1,4 @@
-#Hack Kosice Marathon: 
+# Hack Kosice Marathon: 
 Sudolabs Eaters
 
 #Team
