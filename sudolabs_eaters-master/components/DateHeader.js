@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View, 
-  Text, 
-  StyleSheet,
-  StatusBar, 
-  Dimensions 
-} from "react-native";
+import { View, Text, StyleSheet, StatusBar, Dimensions } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -14,7 +8,7 @@ function DateHeader(props) {
 
   let dayState = "";
 
-  let date = new Date;
+  let date = new Date();
   let day = date.getDay();
   let dayNum = date.getDate();
 
@@ -23,13 +17,13 @@ function DateHeader(props) {
   } else if (day == 2) {
     dayState = "tuesday";
   } else if (day == 3) {
-    dayState = "wednesday"
+    dayState = "wednesday";
   } else if (day == 4) {
-    dayState = "thursday"
+    dayState = "thursday";
   } else if (day == 5) {
-    dayState = "friday"
+    dayState = "friday";
   } else if (day == 6) {
-    dayState = "saturday"
+    dayState = "saturday";
   }
 
   return (
@@ -50,19 +44,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "90%",
     alignSelf: "center",
-    borderRadius: 15
-    
+    borderRadius: 15,
   },
   dateNum: {
     fontSize: 30,
     color: "#fff",
-    marginLeft: "5%"
+    marginLeft: "5%",
   },
   day: {
     fontSize: 25,
     color: "#fff",
     flex: 1,
-    marginLeft:20,
+    marginLeft: 20,
   },
 });
 export default DateHeader;
