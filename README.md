@@ -5,8 +5,8 @@ Sudolabs Eaters
 SUDO is bLoAt
 
 # Team members
-Matúš Bárány, SPŠE KE komenského 44
-Lukáš randuška, SPŠE KE komenského 44
+ - Matúš Bárány, SPŠE KE komenského 44
+ - Lukáš randuška, SPŠE KE komenského 44
 
 ## Description
 Our app tries to simplify the process of choosing the restaurant, eating time and choosing the orderer.
