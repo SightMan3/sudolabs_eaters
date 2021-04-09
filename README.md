@@ -28,7 +28,7 @@ Our app tries to simplify the process of choosing the restaurant, eating time an
   place:
     - people write their own restaurants and most votes for restaurants wins
 
-## targe users:
+# targe users:
     - all hungry people that people that work in small companies
 
 
