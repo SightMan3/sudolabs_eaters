@@ -8,16 +8,24 @@ export default class WhereToEatScreen extends React.Component {
   DATA = [];
   constructor(props) {
     super(props);
-    console.log(props.route.res);
-    this.res = props.route.res;
+    const { res , getRes} = props.route.params;
+    
+    this.navigation = props.navigation;
+    console.log(res);
+    this.res = res;
+    this.getRes = getRes;
+  }
+  componentDidMount() {
     this.fillDATA();
   }
 
   fillDATA() {
     this.DATA = [];
     this.res.forEach((element) => {
-      this.DATA.push({id: this.generateIds(), title: element})
+      this.DATA.push({ id: this.generateIds(), title: element });
     });
+    console.log(this.DATA);
+    this.setState({ data: this.DATA });
   }
 
   generateIds() {
@@ -25,7 +33,18 @@ export default class WhereToEatScreen extends React.Component {
       return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     };
     return (
-      S4() +S4() +"-" +S4() +"-" +S4() +"-" +S4() +"-" +S4() +S4() +S4()
+      S4() +
+      S4() +
+      "-" +
+      S4() +
+      "-" +
+      S4() +
+      "-" +
+      S4() +
+      "-" +
+      S4() +
+      S4() +
+      S4()
     );
   }
 
@@ -37,7 +56,9 @@ export default class WhereToEatScreen extends React.Component {
     search: "",
   };
   filterItem = (query, element) => {
-    if (element.title.toLowerCase().trim().includes(query.toLowerCase().trim())) {
+    if (
+      element.title.toLowerCase().trim().includes(query.toLowerCase().trim())
+    ) {
       return true;
     }
     return false;
@@ -51,7 +72,7 @@ export default class WhereToEatScreen extends React.Component {
     const formattedQuery = text.toLowerCase();
     let numberOfItems = 0;
     let result = [];
-    DATA.forEach((element) => {
+    this.DATA.forEach((element) => {
       let contains = this.filterItem(formattedQuery, element);
       //console.log("checking " + formattedQuery + " with " + element.title);
 
@@ -67,6 +88,13 @@ export default class WhereToEatScreen extends React.Component {
     this.setState({ data: result, search: text });
   };
 
+  sendChosenRestaurant = (restaurant) => {
+    console.log("you want " + restaurant);
+    this.getRes(restaurant);
+    this.navigation.goBack();
+  };
+
+
   renderItem = ({ item }) => {
     const backgroundColor =
       item.id === this.state.selectedId ? "#6e3b6e" : "#f9c2ff";
@@ -75,7 +103,10 @@ export default class WhereToEatScreen extends React.Component {
     return (
       <Item
         item={item}
-        onPress={() => this.setState({ selectedId: item.id })}
+        onPress={() => {
+          this.setState({ selectedId: item.id });
+          this.sendChosenRestaurant(item.title);
+        }}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />

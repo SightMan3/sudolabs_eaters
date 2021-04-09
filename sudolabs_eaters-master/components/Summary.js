@@ -5,9 +5,11 @@ import DateHeader from "./DateHeader";
 import Line from "./Line";
 
 function Summary(props) {
+  
   let name = "janko popoluška";
   let eaters = 22;
   let time = "12:13";
+  
   return (
     <View style={styles.container}>
       <DateHeader heading={"SUMMARY"} />

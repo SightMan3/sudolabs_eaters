@@ -69,6 +69,9 @@ function VoteScreen(props) {
         restaurant: "bistro mango",
       });
   };
+  const printRestaurants = (restaurant) => {
+    console.log(restaurant);
+  }
 
   const getRestaurants = async () => {
     let restaurants = [];
@@ -83,7 +86,7 @@ function VoteScreen(props) {
     }
     snapshot.forEach((doc) => {
       restaurants.push(doc.data().restaurant);
-      console.log("adding new restaurants");
+
     });
     restaurantsArray = [...new Set(restaurants)];
     console.log(restaurantsArray);
@@ -95,7 +98,7 @@ function VoteScreen(props) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#222222" }}>
       <ScrollView>
-        <View style={{ height: "60%" }}>
+        <View style={{ height: "100%" }}>
           <DateHeader heading={"Vote"} />
 
           <View style={styles.container}>
@@ -128,28 +131,55 @@ function VoteScreen(props) {
           <Line />
 
           <EatTimeScreen getEatingTime={getEatingTime} />
+
+          <Line />
+          <Text style={styles.textHeader}>Choose your restaurant</Text>
+           
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#222222",
+              flex: 1,
+              height: 80,
+            }}
+          >
+            <TouchableNativeFeedback
+              onPress={() => {
+                console.log("Pressedddd");
+                console.log(restaurantsArray);
+                navigation.navigate(
+                  "WhereEat", {
+                   res: restaurantsArray, 
+                   getRes: printRestaurants });
+              }}
+            >
+              <View style={styles.temp_send_data}>
+                <Text style={{ color: "white" , fontSize:20}}>list</Text>
+              </View>
+            </TouchableNativeFeedback>
+          </View>
+
+          <Line />
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+              backgroundColor: "#222222",
+              flex: 1,
+              height: 80,
+            }}
+          >
+            <TouchableNativeFeedback onPress={_sendData}>
+              <View style={styles.temp_send_data}>
+                <Text style={{ color: "white" , fontSize:20}}>send data</Text>
+              </View>
+            </TouchableNativeFeedback>
+          </View>
+
         </View>
       </ScrollView>
-
-      <TouchableNativeFeedback
-        onPress={() => {
-          console.log("Pressedddd")
-          console.log(restaurantsArray)
-          navigation.navigate("WhereEat",
-           { res: restaurantsArray });
-
-        }}
-      >
-        <View style={styles.temp_send_data}>
-          <Text style={{ color: "white" }}>list</Text>
-        </View>
-      </TouchableNativeFeedback>
-
-      <TouchableNativeFeedback onPress={_sendData}>
-        <View style={styles.temp_send_data}>
-          <Text style={{ color: "white" }}>send data</Text>
-        </View>
-      </TouchableNativeFeedback>
     </SafeAreaView>
   );
 }
@@ -194,8 +224,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#ff985A",
     width: "40%",
     alignItems: "center",
-    height: "6%",
     justifyContent: "center",
+    height: "40%",
     borderRadius: 50,
   },
 });

@@ -5,35 +5,49 @@ import {
   View,
   Text,
   TouchableNativeFeedback,
-  Dimensions
+  Dimensions,
 } from "react-native";
+
 import RangeSlider, { Slider } from "react-native-range-slider-expo";
 
 const { width, height } = Dimensions.get("window");
-
+let fromTimeDynamic = 0;
+let toTimeDynamic = 360;
 //import RangeSlider from 'rn-range-slider';
 function EatTimeScreen(props) {
   const [fromValue, setFromValue] = useState(0);
-  const [toValue, setToValue] = useState(0);
+  const [toValue, setToValue] = useState(360);
   const [value, setValue] = useState("00:00");
   const navigation = props.navigation;
-
 
   const numToString = (num) => {
     num += 600;
     let hours = Math.floor(num / 60);
-    let minutes = (num - hours * 60) * 100;
+    let minutes = (num - (hours * 60));
 
-    hours = hours.toString().length < 2 ? '0' + hours : hours;
-    minutes = minutes.toString().length < 2 ?  minutes + '0'  : minutes;
+    hours = hours.toString().length < 2 ? "0" + hours : hours;
+    minutes = minutes.toString().length < 2 ? "0" + minutes  : minutes;
     return hours + ":" + minutes.toString().substring(0, 2);
   };
 
   const setEatingTime = () => {
-    let fromTime = numToString(fromValue);
-    let toTime = numToString(toValue);
+    let fromTime = numToString(fromTimeDynamic);
+    let toTime = numToString(toTimeDynamic);
+    console.log(fromTime + "ehhessshe" + toTime);
     props.getEatingTime(fromTime, toTime);
-  }
+  };
+
+  const updateLow = async (value) => {
+    setFromValue(value);
+    fromTimeDynamic = value;
+    setEatingTime();
+  };
+
+  const updateHigh = (value) => {
+    setToValue(value);
+    toTimeDynamic = value;
+    setEatingTime();
+  };
 
   return (
     <View style={styles.base}>
@@ -53,40 +67,21 @@ function EatTimeScreen(props) {
               fromKnobColor="#FF985A"
               toKnobColor="#FF985A"
               inRangeBarColor="#fff"
-              fromValueOnChange={(value) => setFromValue(value)}
-              toValueOnChange={(value) => setToValue(value)}
+              fromValueOnChange={(value) => updateLow(value)}
+              toValueOnChange={(value) => updateHigh(value)}
               initialFromValue={12}
             />
           </View>
-
+  
           <View style={styles.textContainer}>
             <Text style={styles.textData}>from: {numToString(fromValue)}</Text>
             <Text style={styles.textData}>to: {numToString(toValue)}</Text>
           </View>
         </View>
 
-        <TouchableNativeFeedback onPress={setEatingTime}>
-          <View style={styles.setTime}>
-            <Text style={{
-              color: "white"
-            }}>
-              set Time
-            </Text>
-          </View>
-        </TouchableNativeFeedback>
+
       </View>
 
-      {/* <View style={styles.buttonContainer}>
-      <TouchableNativeFeedback  onPress ={() =>{ console.log("Press"); navigation.navigate("WhereEat")}}>
-        <View style={styles.startVoting}>
-          <Text style={{color: "white",justifyContent:"center" }}>
-            start voting
-          </Text>
-        </View>
-      </TouchableNativeFeedback>
-    </View> */}
-
-     
     </View>
   );
 }
@@ -150,8 +145,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 5
-  }
+    borderRadius: 5,
+  },
 });
 
 export default EatTimeScreen;

@@ -43,12 +43,12 @@ function DateHeader(props) {
 
 const styles = StyleSheet.create({
   container: {
-    height: "15%",
+    height: 50,
     backgroundColor: "#FF985A",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    width: "80%",
+    width: "90%",
     alignSelf: "center",
     borderRadius: 15
     
