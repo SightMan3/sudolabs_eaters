@@ -83,21 +83,26 @@ export default class WhereToEatScreen extends React.Component {
     });
 
     if (numberOfItems === 0 && result.length === 0) {
-      result.push({ id: "addNew", title: "ADD NEW REST" });
+      result.push({ id: "SPECIAL", title: "add search as res" });
     }
     this.setState({ data: result, search: text });
   };
 
   sendChosenRestaurant = (restaurant) => {
-    console.log("you want " + restaurant);
-    this.getRes(restaurant);
+    let result = restaurant.title
+   
+    if(restaurant.id === "SPECIAL"){
+      result = this.state.search;
+    }
+    console.log("you want " + result);
+    this.getRes(result);
     this.navigation.goBack();
   };
 
 
   renderItem = ({ item }) => {
     const backgroundColor =
-      item.id === this.state.selectedId ? "#6e3b6e" : "#f9c2ff";
+      item.id === this.state.selectedId ? "#ff985a" : "#ff985a";
     const color = item.id === this.state.selectedId ? "white" : "black";
 
     return (
@@ -105,7 +110,7 @@ export default class WhereToEatScreen extends React.Component {
         item={item}
         onPress={() => {
           this.setState({ selectedId: item.id });
-          this.sendChosenRestaurant(item.title);
+          this.sendChosenRestaurant(item);
         }}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
@@ -135,6 +140,7 @@ export default class WhereToEatScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#222222",
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
   },

@@ -9,7 +9,7 @@ function Summary(props) {
   let name = "janko popoluška";
   let eaters = 22;
   let time = "12:13";
-  
+
   return (
     <View style={styles.container}>
       <DateHeader heading={"SUMMARY"} />
@@ -22,13 +22,14 @@ function Summary(props) {
       <Text style={styles.subtitles}>NUMBER OF EATERS</Text>
 
       <Text style={styles.dataText}>{eaters}</Text>
+
       <TouchableNativeFeedback>
         <View style={styles.startVoting}>
           <Text style={{ color: "#fff" }}>LIST</Text>
         </View>
       </TouchableNativeFeedback>
 
-      <Line />
+      <Line/>
 
       <Text style={styles.subtitles}> ORDER TIME</Text>
       <Text style={styles.dataText}>{time}</Text>
