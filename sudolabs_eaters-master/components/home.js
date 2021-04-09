@@ -11,40 +11,48 @@ import {
 import * as Google from "expo-google-app-auth";
 
 import styles from "../styles/home_css";
+import { TextInput } from "react-native-gesture-handler";
 
 export default function Home({ navigation }) {
   const [isLoading, setLoadingState] = React.useState(false);
 
   const { width, height } = Dimensions.get("window");
 
-  let state = {
+  const [text, onChangeText] = React.useState("Name");
+
+
+    let state = {
     name: "",
     photoUrl: "",
     isSigned: false,
   };
 
   const signIn = async () => {
-    navigation.navigate("Loader");
-    try {
-      const result = await Google.logInAsync({
-        androidClientId:
-          "270904747305-p3ufg9mekflt2cu0frs3og8g2r7ha0os.apps.googleusercontent.com",
-        scopes: ["profile", "email"],
-      });
-      if (result.type === "success") {
-        state = {
-          name: result.user.name,
-          photoUrl: result.user.photoUrl,
-          isSigned: true,
-        };
-        navigation.navigate("Profile", {
-          name: state.name,
-          photo: state.photoUrl,
+    // navigation.navigate("Loader");
+    // try {
+    //   const result = await Google.logInAsync({
+    //     androidClientId:
+    //       "270904747305-p3ufg9mekflt2cu0frs3og8g2r7ha0os.apps.googleusercontent.com",
+    //     scopes: ["profile", "email"],
+    //   });
+    //   if (result.type === "success") {
+    //     state = {
+    //       name: result.user.name,
+    //       photoUrl: result.user.photoUrl,
+    //       isSigned: true,
+    //     };
+    //     navigation.navigate("Profile", {
+    //       name: state.name,
+    //       photo: state.photoUrl,
+    //     });
+    //   }
+    // } catch (e) {
+    //   console.log("error", e);
+    // }
+          navigation.navigate("Profile", {
+          name: text,
+          photo: 'https://picsum.photos/200/300',
         });
-      }
-    } catch (e) {
-      console.log("error", e);
-    }
   };
 
   return (
@@ -59,6 +67,14 @@ export default function Home({ navigation }) {
         </Text>
       </View>
       <View style={styles.inputs}>
+      
+
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={text}
+      />
+
         <TouchableNativeFeedback onPress={() => signIn()}>
           <View style={styles.nextBTN}>
             <Text
@@ -67,7 +83,7 @@ export default function Home({ navigation }) {
                 fontSize: 14,
               }}
             >
-              Sign In With Google
+              Sign In
             </Text>
           </View>
         </TouchableNativeFeedback>

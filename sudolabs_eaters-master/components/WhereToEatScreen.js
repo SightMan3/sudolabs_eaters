@@ -8,10 +8,10 @@ export default class WhereToEatScreen extends React.Component {
   DATA = [];
   constructor(props) {
     super(props);
-    const { res , getRes} = props.route.params;
-    
+    const { res, getRes } = props.route.params;
+
     this.navigation = props.navigation;
-    console.log(res);
+
     this.res = res;
     this.getRes = getRes;
   }
@@ -24,7 +24,7 @@ export default class WhereToEatScreen extends React.Component {
     this.res.forEach((element) => {
       this.DATA.push({ id: this.generateIds(), title: element });
     });
-    console.log(this.DATA);
+
     this.setState({ data: this.DATA });
   }
 
@@ -74,7 +74,6 @@ export default class WhereToEatScreen extends React.Component {
     let result = [];
     this.DATA.forEach((element) => {
       let contains = this.filterItem(formattedQuery, element);
-      //console.log("checking " + formattedQuery + " with " + element.title);
 
       if (contains) {
         result.push(element);
@@ -89,16 +88,15 @@ export default class WhereToEatScreen extends React.Component {
   };
 
   sendChosenRestaurant = (restaurant) => {
-    let result = restaurant.title
-   
-    if(restaurant.id === "SPECIAL"){
+    let result = restaurant.title;
+
+    if (restaurant.id === "SPECIAL") {
       result = this.state.search;
     }
-    console.log("you want " + result);
+
     this.getRes(result);
     this.navigation.goBack();
   };
-
 
   renderItem = ({ item }) => {
     const backgroundColor =

@@ -12,7 +12,7 @@ const data = [
   { id: 7, txt: "SUNDAY", isChecked: false },
 ];
 
-export default function WhoOrdersScreen({navigation}) {
+export default function WhoOrdersScreen({ navigation }) {
   const [products, setProducts] = useState(data);
 
   const handleChange = (id) => {
@@ -62,10 +62,12 @@ export default function WhoOrdersScreen({navigation}) {
       <View style={{ flex: 1 }}>{renderFlatList(products)}</View>
 
       {/* <View style={{ flex: 1 }}>{renderFlatList(selected)}</View> */}
-      <Button title="NEXT" onPress = {() =>{
-          navigation.navigate("EatTime")
-      }}></Button>
-
+      <Button
+        title="NEXT"
+        onPress={() => {
+          navigation.navigate("EatTime");
+        }}
+      ></Button>
     </View>
   );
 }
@@ -93,10 +95,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   text: {
-    fontSize:20,
+    fontSize: 20,
     textAlign: "center",
     fontWeight: "bold",
-  }, textHeader: {
+  },
+  textHeader: {
     fontWeight: "bold",
     fontSize: 36,
     alignSelf: "center",
@@ -104,5 +107,3 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
 });
-
-
