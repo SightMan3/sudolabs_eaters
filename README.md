@@ -43,6 +43,8 @@ Our prototype has:
 Would like to implement:
  - "eating rooms" som people can be in multiple groups
  - google maps for more convenient searching for restaurants
+ - list of people who will eat so the orderer can see for how many people is he ordering
+ - notifications to notify everybody of voting results
 
 ## How to try
 List any URLs relevant to demonstrating your prototype, e.g. a live url where judges can preview your app. Note that judges won't be able to setup anything in their computers.
