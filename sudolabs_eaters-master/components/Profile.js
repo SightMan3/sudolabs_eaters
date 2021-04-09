@@ -1,20 +1,42 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { 
   StyleSheet, 
-  Text, 
-  View, 
-  SafeAreaView, 
+  Text,
+  View,
+  SafeAreaView,
   Dimensions,
   TouchableNativeFeedback,
   Image,
 } from 'react-native';
+import * as firebase from "firebase";
+import "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCgppknCFV8KqHFuk3NZ3_qJ5ClHKOAQr4",
+  authDomain: "sudolabs-e08ef.firebaseapp.com",
+  projectId: "sudolabs-e08ef",
+  storageBucket: "sudolabs-e08ef.appspot.com",
+  messagingSenderId: "186052300477",
+  appId: "1:186052300477:web:ea5e990300e848f69e71d4",
+  measurementId: "G-7QLGEZ18P0",
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
+}
+
 
 // sytles
 import styles from "../styles/Profile_css"
 
 export default function Profile(props) {
 
-    const [ isOrdering, setOrdererState ] = React.useState(true);
+    const [ isOrdering, setOrdererState ] = React.useState("");
+    const [ eat_time, setEat_time ] = React.useState("");
+    const [ numberOfEaters, setNumberOfEaters ] = React.useState(0);
+    const [ orderCount, setOrderCount ] = React.useState(0);
 
     const { width, height } = Dimensions.get("window");
 
@@ -23,9 +45,42 @@ export default function Profile(props) {
     const navigation = props.navigation;
 
     let eatingTime = 0;
-    let orders = 0.0;
 
-    let orderer = "Lucifer Tortelini"
+    let summary_res = "";
+
+    const handleDB = async () => {
+
+      let date = new Date().getDate();
+      let month = new Date().getMonth() + 1;
+      let year = new Date().getFullYear();
+
+      let finalDate = `${date}-${month}-${year}`;
+      const db = firebase.firestore();
+
+      const setUser = await db.collection(name).doc("data").get();
+      if (!setUser.exists) {
+        db.collection(name).doc("data").set({
+          orderCount: 0
+        })
+      } else {
+        setOrderCount(setUser.data().orderCount)
+      }
+
+      const snapshot = await db.collection("finalData").doc("data").get()
+      const snap = await db.collection(finalDate).get();
+
+      setOrdererState(snapshot.data().orderer)
+      setEat_time(snapshot.data().time)
+      setNumberOfEaters(snap.size)
+
+    }
+
+    useEffect(() => {
+      handleDB()
+      console.log(numberOfEaters)
+    }, []);
+    
+    
 
   return (
     <SafeAreaView style={{
@@ -74,7 +129,7 @@ export default function Profile(props) {
             source={require("../assets/orders.png")}
           />
           <Text style={{color:"white", padding: "5%"}}>
-            {orders}    number of orders
+            {orderCount}    number of orders
           </Text>
         </View>
       </View>
@@ -91,10 +146,13 @@ export default function Profile(props) {
           Today is ordering
         </Text>
         <Text style={styles.orderer}>
-          {orderer}
+          {isOrdering}
         </Text>
       </View>
-      <TouchableNativeFeedback onPress ={() =>{ navigation.navigate("Summary")}}>
+      <TouchableNativeFeedback onPress ={() =>{ 
+        navigation.navigate("Summary", {res: numberOfEaters, time: eat_time, name: isOrdering})
+        
+      }}>
         <View style={styles.summary}>
           <Text style={{color: "white"}}>
             see summary

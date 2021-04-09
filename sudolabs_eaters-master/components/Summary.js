@@ -9,30 +9,29 @@ function Summary(props) {
   let name = "janko popoluška";
   let eaters = 22;
   let time = "12:13";
-
+  
   return (
     <View style={styles.container}>
-      <DateHeader heading={"SUMMARY"} />
+      <DateHeader heading={"Summary"} />
 
-      <Text style={styles.subtitles}>ORDERING</Text>
-      <Text style={styles.dataText}>{name}</Text>
+      <Text style={styles.subtitles}>Ordering</Text>
+      <Text style={styles.dataText}>{props.route.params.name}</Text>
 
       <Line />
 
-      <Text style={styles.subtitles}>NUMBER OF EATERS</Text>
+      <Text style={styles.subtitles}>Number Of Eaters</Text>
 
-      <Text style={styles.dataText}>{eaters}</Text>
-
+      <Text style={styles.dataText}>{props.route.params.res}</Text>
       <TouchableNativeFeedback>
         <View style={styles.startVoting}>
-          <Text style={{ color: "#fff" }}>LIST</Text>
+          <Text style={{ color: "#fff" }}>List</Text>
         </View>
       </TouchableNativeFeedback>
 
-      <Line/>
+      <Line />
 
-      <Text style={styles.subtitles}> ORDER TIME</Text>
-      <Text style={styles.dataText}>{time}</Text>
+      <Text style={styles.subtitles}> Order Time</Text>
+      <Text style={styles.dataText}>{props.route.params.time}</Text>
     </View>
   );
 }

@@ -44,6 +44,7 @@ function VoteScreen(props) {
 
   let fromTime = "";
   let toTime = "";
+  let restaurant_val = "";
 
   const getEatingTime = (timeFrom, timeTo) => {
     fromTime = timeFrom;
@@ -66,12 +67,13 @@ function VoteScreen(props) {
         timeFrom: fromTime,
         timeTo: toTime,
         isEating: eat ? "true" : "false",
-        restaurant: "bistro mango",
+        restaurant: restaurant_val,
       });
   };
   const printRestaurants = (restaurant) => {
     console.log(restaurant);
-  };
+    restaurant_val = restaurant
+  }
 
   const getRestaurants = async () => {
     let restaurants = [];
@@ -86,6 +88,7 @@ function VoteScreen(props) {
     }
     snapshot.forEach((doc) => {
       restaurants.push(doc.data().restaurant);
+
     });
     restaurantsArray = [...new Set(restaurants)];
     console.log(restaurantsArray);
@@ -101,7 +104,7 @@ function VoteScreen(props) {
           <DateHeader heading={"Vote"} />
 
           <View style={styles.container}>
-            <Text style={styles.textHeader}>attendance</Text>
+            <Text style={styles.textHeader}>Eating License</Text>
             <View style={styles.card}>
               <CheckBox
                 tintColors={{ true: "#ff985A", false: "#fff" }}
@@ -132,8 +135,8 @@ function VoteScreen(props) {
           <EatTimeScreen getEatingTime={getEatingTime} />
 
           <Line />
-          <Text style={styles.textHeader}>restaurants</Text>
-
+          <Text style={styles.textHeader}>Choose your restaurant</Text>
+           
           <View
             style={{
               alignItems: "center",
@@ -145,15 +148,16 @@ function VoteScreen(props) {
           >
             <TouchableNativeFeedback
               onPress={() => {
+                console.log("Pressedddd");
                 console.log(restaurantsArray);
-                navigation.navigate("WhereEat", {
-                  res: restaurantsArray,
-                  getRes: printRestaurants,
-                });
+                navigation.navigate(
+                  "WhereEat", {
+                   res: restaurantsArray, 
+                   getRes: printRestaurants });
               }}
             >
               <View style={styles.temp_send_data}>
-                <Text style={{ color: "white", fontSize: 20 }}>choose</Text>
+                <Text style={{ color: "white" , fontSize:20}}>list</Text>
               </View>
             </TouchableNativeFeedback>
           </View>
@@ -171,7 +175,7 @@ function VoteScreen(props) {
           >
             <TouchableNativeFeedback onPress={_sendData}>
               <View style={styles.temp_send_data}>
-                <Text style={{ color: "white", fontSize: 20 }}>submit</Text>
+                <Text style={{ color: "white" , fontSize:20}}>send data</Text>
               </View>
             </TouchableNativeFeedback>
           </View>
@@ -189,6 +193,7 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: "#222222",
   },
+
   card: {
     padding: 10,
     margin: 5,
