@@ -28,7 +28,7 @@ Our app tries to simplify the process of choosing the restaurant, eating time an
   Place:
    - people write their own restaurants and most votes for restaurants wins
 
-# Targe users:
+# Target users:
    - all hungry people that work in small companies
 
 
@@ -36,7 +36,7 @@ Our app tries to simplify the process of choosing the restaurant, eating time an
 Our prototype has:
  - google authentication to identify the users
  - firebase database to store the votes with the additional data
- - server that processes data
+ -  Heroku server that processes data -> see https://github.com/mtu4554/HerokuServer
  - person can vote for time and restaurant
  - all people can see summary of results from our server
 
@@ -47,7 +47,7 @@ Would like to implement:
  - notifications to notify everybody of voting results
 
 ## How to try
-List any URLs relevant to demonstrating your prototype, e.g. a live url where judges can preview your app. Note that judges won't be able to setup anything in their computers.
+
 
 ## Challenges and accomplishments
 Is there anything unexpected that you learned over the course of this project?
