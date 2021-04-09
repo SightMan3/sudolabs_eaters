@@ -57,4 +57,4 @@ We are proud that we did so much work in so little time.
 
 
 ## License
-This repository includes an unlicense statement though you may want to choose a different license.
+sudolabs eaters is released under the MIT license.
