@@ -44,6 +44,7 @@ function VoteScreen(props) {
 
   let fromTime = "";
   let toTime = "";
+  let restaurant_val = "";
 
   const getEatingTime = (timeFrom, timeTo) => {
     fromTime = timeFrom;
@@ -66,11 +67,12 @@ function VoteScreen(props) {
         timeFrom: fromTime,
         timeTo: toTime,
         isEating: eat ? "true" : "false",
-        restaurant: "bistro mango",
+        restaurant: restaurant_val,
       });
   };
   const printRestaurants = (restaurant) => {
     console.log(restaurant);
+    restaurant_val = restaurant
   }
 
   const getRestaurants = async () => {
