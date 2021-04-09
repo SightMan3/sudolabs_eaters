@@ -17,19 +17,19 @@ Our app tries to simplify the process of choosing the restaurant, eating time an
  
 ## solves:
   orderers:
-    - people in group can't vote who will order that day
-    - to be selected, person need to tell the app that he will be in work, so there won't be any confusion in workplace
-    - they are choosen by number of orders each person made so everybody is selected equally if people have same order count server will choose randomly.
+   - people in group can't vote who will order that day
+   - to be selected, person need to tell the app that he will be in work, so there won't be any confusion in workplace
+   - they are choosen by number of orders each person made so everybody is selected equally if people have same order count server will choose randomly.
   
   time:
-    - every person selects time range when they want to eat in our app and the server will compute most overlaps of these time ranges
-    - if same overlaps on multiple times server will choose the closer one to 12:00 
+   - every person selects time range when they want to eat in our app and the server will compute most overlaps of these time ranges
+   - if same overlaps on multiple times server will choose the closer one to 12:00 
  
   place:
-    - people write their own restaurants and most votes for restaurants wins
+   - people write their own restaurants and most votes for restaurants wins
 
 # targe users:
-    - all hungry people that people that work in small companies
+   - all hungry people that people that work in small companies
 
 
 ## Protoype
