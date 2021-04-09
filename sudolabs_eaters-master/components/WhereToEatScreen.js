@@ -3,29 +3,21 @@ import { FlatList, SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import { SearchBar } from "react-native-elements";
 import Item from "./Item";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
-  },
-  {
-    id: "5869sasf-3da1-471f-bd96-145571e29d72",
-    title: "Fourth Item",
-  },
-];
-
 export default class WhereToEatScreen extends React.Component {
+  res = [];
+  DATA = [];
   constructor(props) {
-    //<get restaurants>
     super(props);
+    console.log(props.route.res);
+    this.res = props.route.res;
+    this.fillDATA();
+  }
+
+  fillDATA() {
+    this.DATA = [];
+    this.res.forEach((element) => {
+      this.DATA.push({id: this.generateIds(), title: element})
+    });
   }
 
   generateIds() {
@@ -39,13 +31,13 @@ export default class WhereToEatScreen extends React.Component {
 
   state = {
     loading: false,
-    data: DATA,
+    data: this.DATA,
     error: null,
     selectedId: null,
     search: "",
   };
   filterItem = (query, element) => {
-    if (element.title.toLowerCase().includes(query.toLowerCase())) {
+    if (element.title.toLowerCase().trim().includes(query.toLowerCase().trim())) {
       return true;
     }
     return false;
@@ -61,7 +53,7 @@ export default class WhereToEatScreen extends React.Component {
     let result = [];
     DATA.forEach((element) => {
       let contains = this.filterItem(formattedQuery, element);
-      console.log("checking " + formattedQuery + " with " + element.title);
+      //console.log("checking " + formattedQuery + " with " + element.title);
 
       if (contains) {
         result.push(element);

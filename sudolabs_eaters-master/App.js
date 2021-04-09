@@ -23,51 +23,68 @@ const { width, height } = Dimensions.get("window");
 export default function App() {
   const Stack = createStackNavigator();
 
+  // return (
+  //   <NavigationContainer>
+  //     <Stack.Navigator screenOptions={options.scr_navg} initialRouteName="Home">
+  //       <Stack.Screen name="Home" component={Home} options={options.scr_scr} />
+  //       <Stack.Screen
+  //         name="About"
+  //         component={About}
+  //         options={options.scr_scr}
+  //       />
+  //       <Stack.Screen
+  //         name="Loader"
+  //         component={Loader}
+  //         options={{ headerShown: false }}
+  //       />
+  //       <Stack.Screen
+  //         name="Profile"
+  //         component={Profile}
+  //         options={options.scr_scr}
+  //       />
+  //       <Stack.Screen
+  //         name="EatTime"
+  //         component={EatTimeScreen}
+  //         options={options.scr_scr}
+  //       />
+  //       <Stack.Screen
+  //         name="WhereEat"
+  //         component={WhereToEatScreen}
+  //         options={options.scr_scr}
+  //       />
+  //       <Stack.Screen
+  //         name="VotingScreen"
+  //         component={VoteScreen}
+  //         options={options.scr_scr}
+  //       />
+  //       <Stack.Screen
+  //         name="Summary"
+  //         component={Summary}
+  //         options={options.scr_scr}
+  //       />
+  //     </Stack.Navigator>
+  //   </NavigationContainer>
+  // );
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={options.scr_navg} initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} options={options.scr_scr} />
-        <Stack.Screen
-          name="About"
-          component={About}
-          options={options.scr_scr}
-        />
-        <Stack.Screen
-          name="Loader"
-          component={Loader}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={Profile}
-          options={options.scr_scr}
-        />
-        <Stack.Screen
-          name="EatTime"
-          component={EatTimeScreen}
-          options={options.scr_scr}
-        />
+      <Stack.Navigator
+       screenOptions={options.scr_navg} 
+       initialRouteName="Home">
+        <Stack.Screen 
+        name="Home"
+        component={VoteScreen} 
+        options={options.scr_scr} />
+ 
         <Stack.Screen
           name="WhereEat"
           component={WhereToEatScreen}
-          options={options.scr_scr}
-        />
-        <Stack.Screen
-          name="VotingScreen"
-          component={VoteScreen}
-          options={options.scr_scr}
-        />
-        <Stack.Screen
-          name="Summary"
-          component={Summary}
-          options={options.scr_scr}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
-
     </NavigationContainer>
   );
 
-  //return <Summary></Summary>;
+  return <VoteScreen />;
 }
 
 const styles = StyleSheet.create({

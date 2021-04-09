@@ -6,11 +6,11 @@ import {
   Text,
   SafeAreaView,
   TouchableNativeFeedback,
-  LogBox
+  LogBox,
 } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
-import * as firebase from "firebase"
-import "firebase/firestore"
+import * as firebase from "firebase";
+import "firebase/firestore";
 
 // components
 import EatTimeScreen from "./EatTimeScreen";
@@ -25,23 +25,21 @@ const firebaseConfig = {
   storageBucket: "sudolabs-e08ef.appspot.com",
   messagingSenderId: "186052300477",
   appId: "1:186052300477:web:ea5e990300e848f69e71d4",
-  measurementId: "G-7QLGEZ18P0"
+  measurementId: "G-7QLGEZ18P0",
 };
 
-
-
 if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig)
+  firebase.initializeApp(firebaseConfig);
 } else {
   firebase.app();
 }
 
-LogBox.ignoreLogs(["Setting a timer for a long period of time"])
-
+let restaurantsArray = [];
+LogBox.ignoreLogs(["Setting a timer for a long period of time"]);
 
 function VoteScreen(props) {
   const [eat, setEatState] = useState(false);
-
+  const navigation = props.navigation;
   const db = firebase.firestore();
 
   let fromTime = "";
@@ -51,44 +49,54 @@ function VoteScreen(props) {
     fromTime = timeFrom;
     toTime = timeTo;
     console.log(fromTime + " " + toTime);
-  }
+  };
 
-  const _sendData = async () => {
+  const getDate = () => {
     let date = new Date().getDate();
     let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear();
 
-    let finalDate = `${date}-${month}-${year}`
-
+    return `${date}-${month}-${year}`;
+  };
+  const _sendData = async () => {
+    let finalDate = getDate();
     db.collection(finalDate)
-    .doc(props.route.params.name)
-    .set({
-      fromTime: fromTime,
-      toTime: toTime,
-      isEating: eat ? "true" : "false",
-      restaurant: "bistro mango"
-    })
+      .doc(props.route.params.name)
+      .set({
+        timeFrom: fromTime,
+        timeTo: toTime,
+        isEating: eat ? "true" : "false",
+        restaurant: "bistro mango",
+      });
+  };
 
-    // const users = await db.collection("daco").doc("haha")
+  const getRestaurants = async () => {
+    let restaurants = [];
+    let finalDate = getDate();
+    console.log("getting users...");
+    const users = db.collection("9-4-2021");
+    const snapshot = await users.where("isEating", "==", "true").get();
 
-    // users.get().then((doc) => {
-    //   if (doc.exists) {
-    //     console.log(doc.data());
-    //   } else {
-    //     console.log("No such document");
-    //   }
-    // }).catch((err) => {
-    //   console.log(err)
-    // })
+    if (snapshot.empty) {
+      console.log("no zucking today...");
+      return;
+    }
+    snapshot.forEach((doc) => {
+      restaurants.push(doc.data().restaurant);
+      console.log("adding new restaurants");
+    });
+    restaurantsArray = [...new Set(restaurants)];
+    console.log(restaurantsArray);
+  };
 
-      
-  }
+  console.log("let zuck'em");
+  getRestaurants();
 
   return (
-    <SafeAreaView style={{ flex: 1,backgroundColor: "#222222" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#222222" }}>
       <ScrollView>
         <View style={{ height: "60%" }}>
-          <DateHeader heading={'Vote'} />
+          <DateHeader heading={"Vote"} />
 
           <View style={styles.container}>
             <Text style={styles.textHeader}>Eating License</Text>
@@ -105,11 +113,11 @@ function VoteScreen(props) {
               />
 
               <Text
-                style={{ 
-                  paddingHorizontal: "5%", 
-                  fontSize: 24, 
+                style={{
+                  paddingHorizontal: "5%",
+                  fontSize: 24,
                   color: "#fff",
-                  marginBottom: "5%" 
+                  marginBottom: "5%",
                 }}
               >
                 I will eat
@@ -119,22 +127,29 @@ function VoteScreen(props) {
 
           <Line />
 
-          <EatTimeScreen getEatingTime={getEatingTime}/>
-
-
+          <EatTimeScreen getEatingTime={getEatingTime} />
         </View>
-
-
       </ScrollView>
 
-      <TouchableNativeFeedback onPress={_sendData}>
+      <TouchableNativeFeedback
+        onPress={() => {
+          console.log("Pressedddd")
+          console.log(restaurantsArray)
+          navigation.navigate("WhereEat",
+           { res: restaurantsArray });
+
+        }}
+      >
         <View style={styles.temp_send_data}>
-          <Text style={{color: "white"}}>
-            send data
-          </Text>
+          <Text style={{ color: "white" }}>list</Text>
         </View>
       </TouchableNativeFeedback>
 
+      <TouchableNativeFeedback onPress={_sendData}>
+        <View style={styles.temp_send_data}>
+          <Text style={{ color: "white" }}>send data</Text>
+        </View>
+      </TouchableNativeFeedback>
     </SafeAreaView>
   );
 }
@@ -182,6 +197,6 @@ const styles = StyleSheet.create({
     height: "6%",
     justifyContent: "center",
     borderRadius: 50,
-  }
+  },
 });
 export default VoteScreen;
