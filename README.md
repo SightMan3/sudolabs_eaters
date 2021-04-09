@@ -9,7 +9,7 @@ Matúš Bárány, SPŠE KE komenského 44
 Lukáš randuška, SPŠE KE komenského 44
 
 ## Description
-Our app tries to simplify the process of choosing the restaurant, eating time and orderer.
+Our app tries to simplify the process of choosing the restaurant, eating time and choosing the orderer.
 
 ## gaps:
   - people can potentially manipulate the time voting by submitting extreme values
