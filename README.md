@@ -29,7 +29,7 @@ Our app tries to simplify the process of choosing the restaurant, eating time an
    - people write their own restaurants and most votes for restaurants wins
 
 # Targe users:
-   - all hungry people that people that work in small companies
+   - all hungry people that work in small companies
 
 
 ## Protoype
