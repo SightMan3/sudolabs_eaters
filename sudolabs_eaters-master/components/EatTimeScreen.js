@@ -52,7 +52,7 @@ function EatTimeScreen(props) {
   return (
     <View style={styles.base}>
       <View>
-        <Text style={styles.textHeader}>When Eat</Text>
+        <Text style={styles.textHeader}>When to eat</Text>
       </View>
 
       <View style={styles.container}>
